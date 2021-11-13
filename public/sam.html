@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title></title>
+</head>
+<body>
+<input type="text" id="url">
+<script>
+let url = document.querySelector('#url');
+url.oninput = () => {
+let value = url.value;
+if(url.value.search("https://") == -1) {
+   url.value = 'https://' + value.replace(/[https://]/g, ''); 
+  } 
+}
+</script>
+</body>
+</html>
