@@ -34,7 +34,7 @@ function Signin(props) {
     const handleBlur = (e) => {
         const value = e.target.value
         if(value){
-            setEmail(`coach${value}`)
+            setEmail(`${value}`)
         }
     }
 

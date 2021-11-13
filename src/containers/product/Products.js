@@ -5,6 +5,7 @@ import Input from '../../components/ui/input/Input';
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from '../../redux/actions/product.action'
 import Modal from '../../components/ui/modal/Modal';
+import './style.css'
 
 
 const Products = (props) => {
@@ -21,7 +22,7 @@ const Products = (props) => {
     const product = useSelector((state) => state.product)
     const category = useSelector((state) => state.category);
     const dispatch = useDispatch();
-    
+
 
     const handleClose = () => {
 
@@ -60,9 +61,28 @@ const Products = (props) => {
         ]);
     }
 
+    const handleCloseProductDetailModal = () => {
+        setProductDetailModal(false);
+    }
+
+    const showProductDetailsModal = (product) => {
+        setProductDetailModal(true);
+        setProductDetails(product);
+
+    }
+
+    // const delButton = (product) => {
+
+    //     const payload = {
+    //         productId: product._id
+    //     };
+    //     dispatch(delete)
+
+    // }
+
     const renderProducts = () => {
         return (
-            <Table style={{fontSize: 12}} responsive="sm">
+            <Table style={{ fontSize: 12 }} responsive="sm">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -81,7 +101,11 @@ const Products = (props) => {
                                     <td>{product.name}</td>
                                     <td>{product.price}</td>
                                     <td>{product.quantity}</td>
-                                    <td>--</td>
+                                    <td>{product.category.name}</td>
+                                    {/* <td>
+                                        <button onClick={() => showProductDetailsModal(product)}>Info</button>
+                                        <button onClick={() => delButton(product)}>del</button>
+                                    </td> */}
                                 </tr>
                             )) : null
                     }
@@ -149,20 +173,9 @@ const Products = (props) => {
         )
     }
 
-    const handleCloseProductDetailModal = () => {
-        setProductDetailModal(false);
-    }
-
-    const showProductDetailsModal = (product) => {
-        setProductDetailModal(true);
-        setProductDetails(product);
-
-    }
-
     const renderProductDetailModal = () => {
 
-        if(!productDetails)
-        {
+        if (!productDetails) {
             return null;
         }
 
@@ -177,7 +190,36 @@ const Products = (props) => {
                     <Col md="6">
                         <label className="key">Name</label>
                         <p className="value">{productDetails.name}</p>
-
+                    </Col>
+                    <Col md="6">
+                        <label className="key">Price</label>
+                        <p className="value">{productDetails.price}</p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="6">
+                        <label className="key">Quantity</label>
+                        <p className="value">{productDetails.quantity}</p>
+                    </Col>
+                    <Col md="6">
+                        <label className="key">Category</label>
+                        <p className="value">--</p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="12">
+                        <label className="key">Description</label>
+                        <p className="value">{productDetails.description}</p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={{ display: 'flex' }}>
+                        <label className="key">Product Picture</label>
+                        {productDetails.productPictures.map(picture => 
+                            <div className="productImgContainer">
+                                <img src={`http://localhost:2000/public/${picture.img}`} alt="" />
+                            </div>
+                        )}
                     </Col>
                 </Row>
 
@@ -197,7 +239,7 @@ const Products = (props) => {
                     </Col>
                 </Row>
                 <Row>
-                    {renderProducts()}
+                    <Col>{renderProducts()}</Col>
                 </Row>
             </Container>
             {renderAddProductModal()}
