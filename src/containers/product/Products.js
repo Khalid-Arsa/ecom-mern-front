@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from '../../redux/actions/product.action'
 import Modal from '../../components/ui/modal/Modal';
 import './style.css'
+import { generatePublicUrl } from "../../urlConfig";
 
 
 const Products = (props) => {
@@ -203,7 +204,7 @@ const Products = (props) => {
                     </Col>
                     <Col md="6">
                         <label className="key">Category</label>
-                        <p className="value">--</p>
+                        <p className="value">{productDetails.category.name}</p>
                     </Col>
                 </Row>
                 <Row>
@@ -213,13 +214,18 @@ const Products = (props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col style={{ display: 'flex' }}>
+                    <Col>
                         <label className="key">Product Picture</label>
-                        {productDetails.productPictures.map(picture => 
-                            <div className="productImgContainer">
-                                <img src={`http://localhost:2000/public/${picture.img}`} alt="" />
-                            </div>
-                        )}
+                        <div style={{ display: 'flex' }}>
+                            {productDetails.productPicture.map(picture => {
+                                return (
+                                    <div className="productImgContainer">
+                                        <img src={generatePublicUrl(picture.img)} alt="" />
+                                    </div>
+                                )
+                            }
+                            )}
+                        </div>
                     </Col>
                 </Row>
 
