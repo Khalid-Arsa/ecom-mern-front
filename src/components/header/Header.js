@@ -46,7 +46,7 @@ function Header() {
                     <Link to="/" className="navbar-brand">Admin Dashboard</Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
+                        <Nav className="mr-auto">
                             {/* <Nav.Link href="#features">Features</Nav.Link>
                                     <Nav.Link href="#pricing">Pricing</Nav.Link>
                                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
